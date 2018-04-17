@@ -50,7 +50,13 @@ public class TapeEquilibrium {
 
     public int solution(int[] A) {
         // sum of all elements of the array
-        int totalSum = IntStream.of(A).sum();
+        // with use of stream Codility gives 83%, failing on some performance tests
+        //int totalSum = IntStream.of(A).sum();
+        int totalSum = 0;
+        for (int element : A) {
+            totalSum += element;
+        }
+
         int result = Integer.MAX_VALUE;
 
         //keep track of sum of all seen elements
