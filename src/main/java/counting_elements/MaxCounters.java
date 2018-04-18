@@ -63,7 +63,24 @@ import java.util.Arrays;
 public class MaxCounters {
 
     public int[] solution(int N, int[] A) {
-        return new int[] {};
+        // init counters
+        int[] counters = new int[N];
+        Arrays.fill(counters, 0);
+
+        // keep track of max counter value for 'max counter' operation
+        int maxCounterValue = 0;
+        for (int element : A) {
+            if (element == N + 1) {
+                // max counter operation
+                counters = new int[N];
+                Arrays.fill(counters, maxCounterValue);
+            } else {
+                // increase operation
+                counters[element - 1]++;
+                if (counters[element - 1] > maxCounterValue) maxCounterValue = counters[element - 1];
+            }
+        }
+        return counters;
     }
 
     public static void main(String[] args) {
