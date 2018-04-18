@@ -1,5 +1,8 @@
 package counting_elements;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * A non-empty zero-indexed array A consisting of N integers is given.
  * A permutation is a sequence containing each element from 1 to N once, and only once.
@@ -47,6 +50,18 @@ package counting_elements;
 public class PermCheck {
 
     public int solution(int[] A) {
+        // aggregate unique numbers
+        Set<Integer> uniqueNumbers = new HashSet<>();
+        for (int element : A) {
+            uniqueNumbers.add(element);
+        }
+        // if numbers were not unique in source array, this is not permutation
+        if(uniqueNumbers.size() != A.length) return 0;
+
+        // check each number in sequence
+        for (int i = 1; i < A.length + 1; i++) {
+            if(!uniqueNumbers.contains(i)) return 0;
+        }
         return 1;
     }
 

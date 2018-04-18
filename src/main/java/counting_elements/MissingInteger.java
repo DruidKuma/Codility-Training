@@ -1,5 +1,10 @@
 package counting_elements;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  *This is a demo task.
  *
@@ -24,7 +29,16 @@ package counting_elements;
 public class MissingInteger {
 
     public int solution(int[] A) {
-        return 1;
+        // Codility gives 88% with streams, failing on performance test
+        //Set<Integer> uniqueNumbers = IntStream.of(A).boxed().collect(Collectors.toSet());
+        Set<Integer> uniqueNumbers = new HashSet<>();
+        for(int num : A) {
+            uniqueNumbers.add(num);
+        }
+        for (int i = 1; ; i++) {
+            if(uniqueNumbers.contains(i)) continue;
+            return i;
+        }
     }
 
     public static void main(String[] args) {
