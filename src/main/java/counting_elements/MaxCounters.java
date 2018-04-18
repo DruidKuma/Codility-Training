@@ -65,20 +65,27 @@ public class MaxCounters {
     public int[] solution(int N, int[] A) {
         // init counters
         int[] counters = new int[N];
-        Arrays.fill(counters, 0);
 
         // keep track of max counter value for 'max counter' operation
-        int maxCounterValue = 0;
+        int currentMax = 0;
+
+        // value to which we need to set all counters after 'max counter' operation
+        int maxOperationValue = 0;
         for (int element : A) {
             if (element == N + 1) {
                 // max counter operation
-                counters = new int[N];
-                Arrays.fill(counters, maxCounterValue);
+                maxOperationValue = currentMax;
             } else {
                 // increase operation
+                if (counters[element - 1] < maxOperationValue) counters[element - 1] = maxOperationValue;
                 counters[element - 1]++;
-                if (counters[element - 1] > maxCounterValue) maxCounterValue = counters[element - 1];
+                if (counters[element - 1] > currentMax) currentMax = counters[element - 1];
             }
+        }
+
+        // set all untouched before counters to max value (after 'max counter' operation) if needed
+        for (int i = 0; i < counters.length; i++) {
+            if(counters[i] < maxOperationValue) counters[i] = maxOperationValue;
         }
         return counters;
     }
