@@ -1,5 +1,7 @@
 package sorting;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 /**
@@ -25,7 +27,13 @@ import java.util.stream.IntStream;
 public class Distinct {
 
     public int solution(int[] A) {
-        return Long.valueOf(IntStream.of(A).distinct().count()).intValue();
+        //with streams Codility gives 91%, failing on performance test (distinct() method is inefficient)
+        //return (int) IntStream.of(A).distinct().count();
+        Set<Integer> unique = new HashSet<>();
+        for (int element : A) {
+            unique.add(element);
+        }
+        return unique.size();
     }
 
     public static void main(String[] args) {
