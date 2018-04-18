@@ -1,5 +1,8 @@
 package counting_elements;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * A small frog wants to get to the other side of a river.
  * The frog is initially located on one bank of the river (position 0) and wants to get to the opposite bank (position X+1).
@@ -52,13 +55,23 @@ package counting_elements;
 public class FrogRiverOne {
 
     public int solution(int X, int[] A) {
-        return -1;
+        Set<Integer> leaves = new HashSet<>();
+        int timeCount = 0;
+
+        // aggregate leaves on each time step until we found enough leaves or traversed all array
+        while(leaves.size() < X && timeCount < A.length) {
+            leaves.add(A[timeCount++]);
+        }
+
+        //if we traversed whole array and still have not enough leaves, return -1, 1 otherwise
+        return (timeCount > A.length || leaves.size() < X) ? -1 : timeCount - 1;
     }
 
     public static void main(String[] args) {
         FrogRiverOne solution = new FrogRiverOne();
 
         System.out.println(solution.solution(5, new int[] {1, 3, 1, 4, 2, 3, 5, 4})); // should return 6
+        System.out.println(solution.solution(5, new int[] {3})); // should return -1
     }
 
 }
