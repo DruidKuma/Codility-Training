@@ -1,5 +1,7 @@
 package stacks_and_queues;
 
+import java.util.Stack;
+
 /**
  * You are going to build a stone wall. The wall should be straight and N meters long, and its thickness should be constant;
  * however, it should have different heights in different places. The height of the wall is specified by an array H of N positive integers.
@@ -32,7 +34,25 @@ package stacks_and_queues;
 public class StoneWall {
 
     public int solution(int[] H) {
-        return 0;
+        int count = 0;
+        Stack<Integer> bricks = new Stack<>();
+        for (int height : H) {
+            //if start of the wall or current height is lower than last one
+            if(bricks.empty() || bricks.peek() < height) {
+                count++;
+                bricks.push(height);
+                continue;
+            }
+            //strip the wall to the last one appropriate (to avoid unnecessary duplication of same height bricks
+            while (!bricks.empty() && bricks.peek() > height) bricks.pop();
+
+            //if no previous appropriate height found
+            if(bricks.empty() || bricks.peek() != height) {
+                count++;
+                bricks.push(height);
+            }
+        }
+        return count;
     }
 
     public static void main(String[] args) {
