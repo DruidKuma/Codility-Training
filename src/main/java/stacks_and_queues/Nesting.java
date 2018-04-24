@@ -1,5 +1,7 @@
 package stacks_and_queues;
 
+import java.util.Stack;
+
 /**
  * A string S consisting of N characters is called properly nested if:
  * - S is empty;
@@ -26,7 +28,15 @@ package stacks_and_queues;
 public class Nesting {
 
     public int solution(String S) {
-        return 1;
+        Stack<Character> parentheses = new Stack<>();
+        for (char p : S.toCharArray()) {
+            //if sub-sequence start with closing bracket
+            if(parentheses.empty() && p == ')') return 0;
+
+            if(parentheses.empty() || parentheses.peek() == p) parentheses.push(p);
+            else parentheses.pop();
+        }
+        return parentheses.empty() ? 1 : 0;
     }
 
     public static void main(String[] args) {
@@ -34,5 +44,6 @@ public class Nesting {
 
         System.out.println(solution.solution("(()(())())")); //should return 1
         System.out.println(solution.solution("())")); //should return 0
+        System.out.println(solution.solution(")(")); //should return 0
     }
 }

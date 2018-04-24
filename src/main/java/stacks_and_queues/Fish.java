@@ -1,5 +1,7 @@
 package stacks_and_queues;
 
+import java.util.Stack;
+
 /**
  * You are given two non-empty arrays A and B consisting of N integers. Arrays A and B represent N voracious fish in a river, ordered downstream along the flow of the river.
  * The fish are numbered from 0 to N − 1. If P and Q are two fish and P < Q, then fish P is initially upstream of fish Q. Initially, each fish has a unique position.
@@ -47,7 +49,22 @@ package stacks_and_queues;
 public class Fish {
 
     public int solution(int[] A, int[] B) {
-        return 1;
+        Stack<Integer> fishes = new Stack<>();
+        int survivors = A.length;
+        for (int i = 0; i < A.length; i++) {
+            if(B[i] == 1) {
+                fishes.push(A[i]);
+                continue;
+            }
+            while(!fishes.empty()) {
+                survivors--;
+                if(fishes.peek() < A[i]) {
+                    fishes.pop();
+                }
+                else break;
+            }
+        }
+        return survivors;
     }
 
     public static void main(String[] args) {
