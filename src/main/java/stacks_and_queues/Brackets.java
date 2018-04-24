@@ -1,7 +1,5 @@
 package stacks_and_queues;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 /**
