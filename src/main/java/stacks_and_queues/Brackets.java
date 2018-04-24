@@ -1,5 +1,9 @@
 package stacks_and_queues;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
 /**
  * A string S consisting of N characters is considered to be properly nested if any of the following conditions is true:
  * - S is empty;
@@ -27,7 +31,17 @@ package stacks_and_queues;
 public class Brackets {
 
     public int solution(String S) {
-        return 1;
+        Stack<Character> parentheses = new Stack<>();
+        for (char p : S.toCharArray()) {
+            //if sub-sequence start with closing bracket
+            if(parentheses.empty() && p == ')') return 0;
+
+            if(parentheses.empty() || "({[".indexOf(p) >= 0) parentheses.push(p);
+            else if((p == ')' && parentheses.peek() == '(')
+                    || (p == '}' && parentheses.peek() == '{')
+                    || (p == ']' && parentheses.peek() == '[')) parentheses.pop();
+        }
+        return parentheses.empty() ? 1 : 0;
     }
 
     public static void main(String[] args) {
